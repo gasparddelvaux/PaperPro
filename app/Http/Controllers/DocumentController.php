@@ -7,7 +7,7 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        $documents = Document::all();
+        $documents = Document::with('customer', 'documentType')->get();
         return view('documents.index', compact('documents'));
     }
 }
