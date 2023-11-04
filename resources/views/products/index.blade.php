@@ -1,21 +1,24 @@
 @extends('layouts')
 @section('content')
-    <h1>Liste des Produits</h1>
-    <table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Liste des Produits</h3>
+        <a href="{{ route('products.create') }}" class="btn btn-primary">Ajouter un produit</a>
+    </div>
+    <table class="table">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Référence</th>
-                <th>Nom</th>
-                <th>Marque</th>
-                <th>Code EAN</th>
-                <th>Stock</th>
-                <th>Stock minimum</th>
-                <th>Prix d'achat</th>
-                <th>Prix de vente</th>
-                <th>Statut</th>
-                <th>Création</th>
-                <th>Action</th>
+                <th scope="col">#</th>
+                <th scope="col">Référence</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Marque</th>
+                <th scope="col">Code EAN</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Stock minimum</th>
+                <th scope="col">Prix d'achat</th>
+                <th scope="col">Prix de vente</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Création</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -33,11 +36,11 @@
                     <td>{{ $product->status }}</td>
                     <td>{{ $product->created_at }}</td>
                     <td>
-                        <a href="{{ route('products.edit', $product->id) }}">Modifier</a>
-                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;">
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-edit-circle"></i></a>
+                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Supprimer</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                         </form>
                     </td>
                 </tr>

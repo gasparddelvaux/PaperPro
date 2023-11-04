@@ -17,4 +17,15 @@ class Document extends Model
     {
         return $this->belongsTo(DocumentType::class, 'documenttype_id');
     }
+
+    protected $fillable = [
+        'reference',
+        'customer_id',
+        'documenttype_id',
+        'totalhvat',
+        'vat',
+        'totalttc',
+        'status',
+        'comment',
+    ];
 }
