@@ -1,7 +1,8 @@
-@extends('layouts')
+@extends('layouts.app')
+@section('title', 'Vos clients')
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Liste des Clients</h3>
+        <h3>Liste des clients</h3>
         <a href="{{ route('customers.create') }}" class="btn btn-primary">Ajouter un client</a>
     </div>
     <table class="table">
@@ -32,7 +33,7 @@
                     <td>{{ $customer->status }}</td>
                     <td>{{ $customer->created_at }}</td>
                     <td>
-                        <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-edit-circle"></i></a>
+                        <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-edit-circle"></i> Modifier</a>
                         <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')

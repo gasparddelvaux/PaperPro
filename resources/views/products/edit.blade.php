@@ -1,11 +1,22 @@
-@extends('layouts')
-
+@extends('layouts.app')
+@section('title')
+    {{ $product->id ? 'Modifier le produit' : 'Ajouter un produit' }}
+@endsection
 @section('content')
-    <h3>{{ $product->id ? 'Modifier' : 'Ajouter' }} le Produit</h3>
+    <h3>{{ $product->id ? 'Modifier le' : 'Ajouter un' }} produit</h3>
     <form method="POST" action="{{ $product->id ? route('products.update', $product->id) : route('products.store') }}">
         @csrf
         @if($product->id)
             @method('PUT')
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger my-4">
+                <ul class="my-0 list-unstyled">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         <div class="row">
             <div class="col-3 mb-3">

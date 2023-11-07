@@ -48,7 +48,7 @@ class ProductController extends Controller
             'reference' => 'required|unique:products',
             'name' => 'required',
             'brand' => 'nullable',
-            'ean_code' => 'nullable',
+            'ean_code' => 'nullable|length:13',
             'stock' => 'required|integer|min:0',
             'stock_min' => 'required|integer|min:0',
             'buying_price' => 'required|integer|min:0',

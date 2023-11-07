@@ -35,6 +35,12 @@ class DocumentController extends Controller
         return $this->edit();
     }
 
+    public function pdf($id)
+    {
+        $document = Document::with('customer', 'documentType', 'products')->find($id);
+        return view('documents.pdf', compact('document'));
+    }
+
     public function update(Request $request, $id)
     {
         $document = Document::find($id);

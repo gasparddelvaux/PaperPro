@@ -1,0 +1,19 @@
+.bg-paperpro {
+    background: rgb(144,39,142);
+    background: linear-gradient(90deg, rgba(144,39,142,1) 0%, rgba(84,36,116,1) 50%, rgba(38,34,97,1) 100%);
+}
+
+.text-logo {
+    font-size: 1.5rem;
+    background: -webkit-linear-gradient(45deg, rgba(144,39,142,1), rgba(38,34,97,1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+    color: white;
+}
+
+#main-container {
+    min-height: 82vh;
+}

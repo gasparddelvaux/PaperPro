@@ -1,0 +1,4 @@
+.bg-paperpro {
+    background: rgb(144,39,142);
+    background: linear-gradient(90deg, rgba(144,39,142,1) 0%, rgba(84,36,116,1) 50%, rgba(38,34,97,1) 100%);
+}  

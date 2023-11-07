@@ -18,6 +18,12 @@ class Document extends Model
         return $this->belongsTo(DocumentType::class, 'documenttype_id');
     }
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'document_product')
+            ->withPivot(['selling_price', 'quantity', 'discount', 'total', 'price_hvat', 'price_vvat', 'total_hvat']);
+    }
+     
     protected $fillable = [
         'reference',
         'customer_id',

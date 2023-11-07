@@ -1,7 +1,8 @@
-@extends('layouts')
+@extends('layouts.app')
+@section('title', 'Vos documents')
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Liste des Documents</h3>
+        <h3>Liste des documents</h3>
         <div class="d-flex flex-row gap-2">
             <form action="{{ route('documents.index') }}" method="GET" class="d-flex gap-2">
                 <div class="form-group">
@@ -12,7 +13,7 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Filtrer</button>
+                <button type="submit" class="btn btn-secondary">Filtrer</button>
             </form>
             <a href="{{ route('documents.create') }}" class="btn btn-primary">Ajouter un document</a>
         </div>
@@ -27,7 +28,7 @@
                 <th>TVA</th>
                 <th>Total TTC</th>
                 <th>Statut</th>
-                <th>Actions</th>
+                <th >Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -41,11 +42,13 @@
                     <td>{{ $document->totalttc }}</td>
                     <td>{{ $document->status }}</td>
                     <td>
-                        <a href="{{ route('documents.edit', $document->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-edit-circle"></i></a>
+                        <a href="{{ route('documents.edit', $document->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-edit-circle"></i> Modifier</a>
+                        <a href="{{ route('documentproducts.show', $document->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-layers-linked"></i> Produits liés</a>
+                        <a href="{{ route('documents.pdf', $document->id) }}" class="btn btn-primary btn-sm"><i class="ti ti-file-type-pdf"></i> Générer</a>
                         <form action="{{ route('documents.destroy', $document->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="ti ti-trash"></i> Supprimer</button>
                         </form>
                     </td>
                 </tr>

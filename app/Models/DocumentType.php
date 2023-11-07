@@ -9,4 +9,10 @@ class DocumentType extends Model
 {
     use HasFactory;
     protected $table = 'documenttypes';
+    protected $fillable = [
+        'reference',
+        'name',
+        'description',
+        'status',
+    ];
 }

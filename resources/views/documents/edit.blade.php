@@ -1,11 +1,22 @@
-@extends('layouts')
-
+@extends('layouts.app')
+@section('title')
+    {{ $product->id ? 'Modifier le document' : 'Ajouter un document' }}
+@endsection
 @section('content')
-    <h3>{{ $document->id ? 'Modifier' : 'Ajouter' }} le Document</h3>
+    <h3>{{ $document->id ? 'Modifier le' : 'Ajouter un' }} document</h3>
     <form method="POST" action="{{ $document->id ? route('documents.update', $document->id) : route('documents.store') }}">
         @csrf
         @if($document->id)
             @method('PUT')
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger my-4">
+                <ul class="my-0 list-unstyled">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         <div class="row">
             <div class="col-4 mb-3">
@@ -47,8 +58,8 @@
             <div class="col-12 mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select name="status" id="status" class="form-control">
-                    <option value="1" {{ old('status', $document->status) == 'N' ? 'selected' : '' }}>Actif</option>
-                    <option value="0" {{ old('status', $document->status) == 'A' ? 'selected' : '' }}>Inactif</option>
+                    <option value="1" {{ old('status', $document->status) == 1 ? 'selected' : '' }}>Actif</option>
+                    <option value="0" {{ old('status', $document->status) == 0 ? 'selected' : '' }}>Inactif</option>
                 </select>
             </div>
             <div class="col-12 mb-3">
