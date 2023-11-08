@@ -17,3 +17,12 @@
 #main-container {
     min-height: 82vh;
 }
+
+.btn-primary {
+    background: -webkit-linear-gradient(15deg, rgba(144,39,142,1), rgb(73, 65, 184));
+    border-color: transparent;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #241e4e;
+}

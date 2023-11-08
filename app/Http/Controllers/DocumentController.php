@@ -5,6 +5,9 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentType;
 use Illuminate\Http\Request;
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class DocumentController extends Controller
 {
@@ -39,6 +42,75 @@ class DocumentController extends Controller
     {
         $document = Document::with('customer', 'documentType', 'products')->find($id);
         return view('documents.pdf', compact('document'));
+    }
+
+    public function download($id, $automaticcalculation = true)
+    {
+        $document = Document::with('customer', 'documentType', 'products')->find($id);
+        $customer = new Party([
+            'name' => $document->customer->name,
+            'custom_fields' => [
+                'Adresse email' => $document->customer->email,
+                'Téléphone' => $document->customer->phone,
+                'Site Web' => $document->customer->website,
+                'Numéro de TVA' => $document->customer->vat_number,
+            ],
+        ]);
+        $seller = new Party([
+            'name' => 'INOVANCY SPRL',
+            'custom_fields' => [
+                'address' => 'Rue de Fleurus 140, 5060 Sambreville',
+                'Adresse email' => 'contact@inovancy.dev',
+                'Téléphone' => '+32 71 96 00 96',
+                'Site Web' => 'inovancy.dev',
+                'Numéro de TVA' => 'BE 0891.995.174',
+            ],
+        ]);
+        
+
+        $invoice = Invoice::make()
+            // Informations générales
+            ->date($document->created_at)
+            ->name($document->documentType->name . ' #' . $document->reference)
+            ->series($document->reference)
+            ->serialNumberFormat('{SERIES}')
+            ->payUntilDays(30)
+            ->currencySymbol('€')
+            ->dateFormat('d/m/Y')
+            ->currencySymbol('€')
+            ->currencyCode('EUR')
+            ->filename($document->reference)
+            ->notes($document->comment)
+            // Client / Vendeur
+            ->buyer($customer)
+            ->seller($seller)
+            // Design
+            ->logo(public_path('img/paperpro.png'))
+            ->template('paperpro');
+        foreach ($document->products as $product) {
+            if (!$automaticcalculation) { 
+                $invoice->addItem((new InvoiceItem())
+                    ->title($product->name)
+                    ->description($product->brand)
+                    ->pricePerUnit($product->pivot->price_hvat)
+                    ->discountByPercent($product->pivot->discount)
+                    ->taxByPercent($document->vat)
+                    ->quantity($product->pivot->quantity));
+            }else{
+                $invoice->addItem((new InvoiceItem())
+                    ->title($product->name)
+                    ->description($product->brand)
+                    ->pricePerUnit($product->pivot->price_hvat)
+                    ->discountByPercent($product->pivot->discount)
+                    ->taxByPercent($document->vat)
+                    ->quantity($product->pivot->quantity)
+                    ->subTotalPrice($product->pivot->total));
+            }
+        }
+        if (!$automaticcalculation) {
+            $invoice->totalAmount($document->totalttc);
+        }
+        return $invoice->stream();
     }
 
     public function update(Request $request, $id)

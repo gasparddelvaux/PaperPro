@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ $product->id ? 'Modifier le document' : 'Ajouter un document' }}
+    {{ $document->id ? 'Modifier le document' : 'Ajouter un document' }}
 @endsection
 @section('content')
     <h3>{{ $document->id ? 'Modifier le' : 'Ajouter un' }} document</h3>

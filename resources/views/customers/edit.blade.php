@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ $product->id ? 'Modifier le client' : 'Ajouter un client' }}
+    {{ $customer->id ? 'Modifier le client' : 'Ajouter un client' }}
 @endsection
 @section('content')
     <div class="container">
