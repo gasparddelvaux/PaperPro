@@ -26,3 +26,17 @@
 .dropdown-item.active, .dropdown-item:active {
     background-color: #241e4e;
 }
+
+.form-control:focus {
+    border-color: #241e4e;
+    box-shadow: 0 0 0 0.25rem rgba(144,39,142,.25);
+}
+
+.form-check-input:checked {
+    background-color: #241e4e;
+    border-color: #241e4e;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(144,39,142,.25);
+}

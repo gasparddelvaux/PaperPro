@@ -8,7 +8,7 @@
 <div class="card mt-4" id="print">
     <div class="card-body p-5">
         <div class="bg-dark text-center p-2 rounded">
-            <h1 class="text-white fw-bold">{{ $document->documenttype->name }}</h1>
+            <h1 class="text-white fw-bold">{{ $document->documenttype ? $document->documenttype->name : 'Autre' }}</h1>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-4">
             <div class="d-flex flex-column">
@@ -27,7 +27,7 @@
         </div>
         <hr class="my-4">
         <div class="d-flex flex-column">
-            <span>Date de la facture: {{ $document->created_at }}</span>
+            <span>Date: {{ $document->created_at }}</span>
             <span>Echeance du paiement: {{ $document->created_at->addDays(30) }}</span>
         </div>
         <hr class="my-4">
